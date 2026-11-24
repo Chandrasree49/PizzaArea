@@ -57,7 +57,8 @@ export default function Navbar() {
                 Pizza<span className="text-[#16A34A]">Area</span>
               </span>
               <p className="text-[10px] uppercase font-bold tracking-wider text-emerald-700 -mt-1 flex items-center gap-1">
-                <Leaf className="w-2.5 h-2.5 text-emerald-500" /> Artisan & Fresh Delivery
+                <Leaf className="w-2.5 h-2.5 text-emerald-500" /> Artisan &
+                Fresh Delivery
               </p>
             </div>
           </Link>
@@ -70,7 +71,9 @@ export default function Navbar() {
                   key={link.name}
                   href={link.href}
                   className={`text-sm font-semibold transition-colors duration-150 relative py-1 ${
-                    isActive ? "text-[#16A34A] font-bold" : "text-gray-700 hover:text-[#16A34A]"
+                    isActive
+                      ? "text-[#16A34A] font-bold"
+                      : "text-gray-700 hover:text-[#16A34A]"
                   }`}
                 >
                   {link.name}
@@ -102,12 +105,17 @@ export default function Navbar() {
                   className="flex items-center gap-3 p-1.5 rounded-full hover:bg-emerald-50 border border-emerald-200/70 transition-all focus:outline-hidden"
                 >
                   <img
-                    src={user.image || "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=300&q=80"}
+                    src={
+                      user.image ||
+                      "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=300&q=80"
+                    }
                     alt={user.name || "User"}
                     className="w-9 h-9 rounded-full object-cover border border-emerald-300"
                   />
                   <div className="text-left hidden lg:block pr-2">
-                    <p className="text-xs font-bold text-gray-900 leading-tight">{user.name}</p>
+                    <p className="text-xs font-bold text-gray-900 leading-tight">
+                      {user.name}
+                    </p>
                     <span className="text-[10px] font-semibold uppercase text-emerald-800 bg-emerald-100 px-1.5 py-0.2 rounded-sm">
                       {userRole}
                     </span>
@@ -118,7 +126,9 @@ export default function Navbar() {
                   <div className="absolute right-0 mt-2 w-56 bg-white rounded-2xl shadow-xl border border-emerald-100 py-2 z-50">
                     <div className="px-4 py-2 border-b border-gray-100">
                       <p className="text-xs text-gray-500">Signed in as</p>
-                      <p className="text-sm font-bold text-gray-900 truncate">{user.email}</p>
+                      <p className="text-sm font-bold text-gray-900 truncate">
+                        {user.email}
+                      </p>
                     </div>
 
                     <button
@@ -139,7 +149,11 @@ export default function Navbar() {
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="p-2 rounded-xl text-gray-700 hover:text-[#16A34A] hover:bg-emerald-50"
             >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {mobileMenuOpen ? (
+                <X className="w-6 h-6" />
+              ) : (
+                <Menu className="w-6 h-6" />
+              )}
             </button>
           </div>
         </div>

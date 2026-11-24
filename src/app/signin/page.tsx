@@ -20,7 +20,7 @@ function LoginContent() {
     e.preventDefault();
     setIsSubmitting(true);
 
-    B
+    
     const { error } = await authClient.signIn.email({
       email,
       password,
