@@ -82,7 +82,7 @@ const { error } = await authClient.signUp.email({
 
   const handleGoogleSignup = async () => {
     await authClient.signIn.social({
-      provider: "github", 
+      provider: "google", 
       callbackURL: "/",
     });
   };
