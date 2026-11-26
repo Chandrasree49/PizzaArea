@@ -46,17 +46,15 @@ export const PizzaProvider = ({ children }: { children: React.ReactNode }) => {
   const [usersList, setUsersList] = useState<User[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  // Search & Filter state
+
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [selectedLocation, setSelectedLocation] = useState<string>('All');
-  const [sortBy, setSortBy] = useState<string>('newest'); // 'newest', 'price_asc', 'price_desc'
-
-  // Hydrate initial state
+  const [sortBy, setSortBy] = useState<string>('newest'); 
   useEffect(() => {
     const loadData = async () => {
       try {
-        // Try fetching public items from backend API
+       
         let apiLoaded = false;
         try {
           const res = await fetch(`${API_BASE}/menu`);
@@ -68,7 +66,7 @@ export const PizzaProvider = ({ children }: { children: React.ReactNode }) => {
             }
           }
         } catch {
-          // Backend not reachable, fall back
+  
         }
 
         if (!apiLoaded) {
@@ -94,7 +92,7 @@ export const PizzaProvider = ({ children }: { children: React.ReactNode }) => {
     loadData();
   }, []);
 
-  // Sync to local storage
+ 
   useEffect(() => {
     if (items.length > 0) localStorage.setItem('pizzaarea_items', JSON.stringify(items));
   }, [items]);
@@ -111,13 +109,11 @@ export const PizzaProvider = ({ children }: { children: React.ReactNode }) => {
     if (usersList.length > 0) localStorage.setItem('pizzaarea_all_users', JSON.stringify(usersList));
   }, [usersList]);
 
-  // Filtered Items (Approved and active only for public browse)
   const filteredItems = items
     .filter((item) => {
       const isApproved = item.status === 'approved';
       if (!isApproved) return false;
 
-      // Search match
       const matchSearch =
         searchQuery === '' ||
         item.itemName.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -125,12 +121,12 @@ export const PizzaProvider = ({ children }: { children: React.ReactNode }) => {
         item.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
         item.location.toLowerCase().includes(searchQuery.toLowerCase());
 
-      // Category match
+      
       const matchCategory =
         selectedCategory === 'All' ||
         item.category.toLowerCase() === selectedCategory.toLowerCase();
 
-      // Location match
+
       const matchLocation =
         selectedLocation === 'All' ||
         item.location.toLowerCase().includes(selectedLocation.toLowerCase());
@@ -140,10 +136,9 @@ export const PizzaProvider = ({ children }: { children: React.ReactNode }) => {
     .sort((a, b) => {
       if (sortBy === 'price_asc') return a.price - b.price;
       if (sortBy === 'price_desc') return b.price - a.price;
-      return 0; // Default order
+      return 0; 
     });
 
-  // Featured items (at least 6, approved, priority to isFeatured)
   const featuredItems = items
     .filter((item) => item.status === 'approved')
     .sort((a, b) => (b.isFeatured ? 1 : 0) - (a.isFeatured ? 1 : 0))
@@ -153,13 +148,11 @@ export const PizzaProvider = ({ children }: { children: React.ReactNode }) => {
     return items.find((item) => item._id === id);
   };
 
-  // Vendor: Create Menu Item
   const createMenuItem = async (data: Omit<MenuItem, '_id' | 'createdAt'>) => {
     if (!user || user.role !== 'vendor') {
       return { success: false, message: 'Only vendors can create menu items' };
     }
 
-    // Check free plan limit (max 3 items)
     if (user.subscriptionPlan !== 'premium') {
       const vendorActiveCount = items.filter(
         (i) => i.vendorId === user.id && (i.status === 'approved' || i.status === 'pending')
@@ -190,13 +183,12 @@ export const PizzaProvider = ({ children }: { children: React.ReactNode }) => {
         }
       }
 
-      // Local fallback
       const newItem: MenuItem = {
         ...data,
         _id: `item_${Date.now()}`,
         vendorId: user.id,
         vendorName: user.businessName || user.name,
-        status: 'pending', // Pending until admin approval
+        status: 'pending', 
         isFeatured: user.subscriptionPlan === 'premium',
         createdAt: new Date().toISOString(),
       };
@@ -211,7 +203,6 @@ export const PizzaProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
-  // Vendor: Update Menu Item
   const updateMenuItem = async (id: string, data: Partial<MenuItem>) => {
     if (!user) return { success: false, message: 'Unauthorized' };
 
@@ -232,7 +223,6 @@ export const PizzaProvider = ({ children }: { children: React.ReactNode }) => {
         }
       }
 
-      // Local update
       setItems((prev) =>
         prev.map((item) => (item._id === id ? { ...item, ...data } : item))
       );
@@ -242,7 +232,7 @@ export const PizzaProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
-  // Vendor: Delete Menu Item
+
   const deleteMenuItem = async (id: string) => {
     if (!user) return { success: false, message: 'Unauthorized' };
 
@@ -261,7 +251,6 @@ export const PizzaProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
-  // Customer: Place Order
   const placeOrder = async (data: {
     itemId: string;
     deliveryDate: string;
@@ -277,12 +266,11 @@ export const PizzaProvider = ({ children }: { children: React.ReactNode }) => {
       return { success: false, message: 'Menu item not found.' };
     }
 
-    // Rule: Only approved items can be ordered
     if (item.status !== 'approved') {
       return { success: false, message: 'This pizza is currently unavailable for order.' };
     }
 
-    // Rule: Prevent duplicate active order for same item & delivery date
+   
     const isDuplicate = orders.some(
       (o) =>
         o.customerId === user.id &&
@@ -317,7 +305,7 @@ export const PizzaProvider = ({ children }: { children: React.ReactNode }) => {
         }
       }
 
-      // Local fallback
+  
       const newOrder: Order = {
         _id: `order_${Date.now()}`,
         itemId: item._id,
@@ -343,7 +331,7 @@ export const PizzaProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
-  // Customer: Cancel Order
+
   const cancelOrder = async (orderId: string) => {
     const order = orders.find((o) => o._id === orderId);
     if (!order) return { success: false, message: 'Order not found' };
@@ -369,7 +357,6 @@ export const PizzaProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
-  // Vendor: Accept / Reject Order
   const updateOrderStatus = async (orderId: string, status: 'accepted' | 'rejected') => {
     const order = orders.find((o) => o._id === orderId);
     if (!order) return { success: false, message: 'Order not found' };
@@ -399,7 +386,7 @@ export const PizzaProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
-  // Admin: Approve, Reject, or deactivate item
+  
   const adminSetItemStatus = async (itemId: string, status: 'approved' | 'rejected' | 'inactive') => {
     try {
       if (token && !token.startsWith('mock_')) {
@@ -422,7 +409,7 @@ export const PizzaProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
-  // Admin: Block / Unblock User
+
   const adminToggleUserBlock = async (userId: string, isBlocked: boolean) => {
     try {
       if (token && !token.startsWith('mock_')) {
@@ -448,7 +435,7 @@ export const PizzaProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
-  // Vendor: Upgrade to Premium (Stripe)
+
   const upgradeToPremium = async () => {
     if (!user || user.role !== 'vendor') {
       return { success: false, message: 'Only vendors can subscribe to Premium' };
@@ -467,7 +454,6 @@ export const PizzaProvider = ({ children }: { children: React.ReactNode }) => {
         }
       }
 
-      // Standalone simulation for local preview
       const simulatedTx: Transaction = {
         _id: `tx_${Date.now()}`,
         vendorId: user.id,
@@ -501,7 +487,7 @@ export const PizzaProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
-  // ImgBB Upload Helper
+ 
   const uploadToImgBB = async (file: File): Promise<string> => {
     const apiKey = process.env.NEXT_PUBLIC_IMGBB_API_KEY;
 
@@ -520,7 +506,7 @@ export const PizzaProvider = ({ children }: { children: React.ReactNode }) => {
       }
     }
 
-    // Beginner-friendly fallback: Read local file as Data URL
+
     return new Promise((resolve) => {
       const reader = new FileReader();
       reader.onloadend = () => {

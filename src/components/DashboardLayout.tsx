@@ -26,7 +26,6 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
   const pathname = usePathname();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  // Define sidebar navigation items according to user role
   const getNavItems = () => {
     if (isAdmin) {
       return [
@@ -49,7 +48,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
       ];
     }
 
-    // Customer
+   
     return [
       { name: 'Overview', href: '/dashboard/customer', icon: LayoutDashboard },
       { name: 'My Orders', href: '/dashboard/customer/orders', icon: ShoppingBag },
@@ -61,7 +60,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
 
   return (
     <div className="min-h-screen bg-[#F7FBF8] flex flex-col md:flex-row">
-      {/* Mobile Sidebar Toggle Button */}
+      
       <div className="md:hidden flex items-center justify-between bg-white border-b border-emerald-100 p-4">
         <div className="flex items-center gap-2">
           <span className="font-bold text-gray-800 text-sm">Dashboard Menu</span>
@@ -74,13 +73,13 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
         </button>
       </div>
 
-      {/* Sidebar Navigation */}
+   
       <aside
         className={`fixed inset-y-0 left-0 z-40 w-64 bg-white border-r border-emerald-100 transform transition-transform duration-200 ease-in-out md:translate-x-0 md:static md:inset-auto md:min-h-screen flex flex-col ${
           sidebarOpen ? 'translate-x-0 shadow-2xl' : '-translate-x-full'
         }`}
       >
-        {/* User Card inside Sidebar */}
+        
         <div className="p-6 border-b border-emerald-100 bg-gradient-to-br from-emerald-50/60 to-white">
           <div className="flex items-center gap-3">
             <img
@@ -109,7 +108,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
           )}
         </div>
 
-        {/* Navigation Items */}
+      
         <nav className="p-4 flex-1 space-y-1 overflow-y-auto">
           {navItems.map((item) => {
             const Icon = item.icon;
@@ -132,7 +131,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
           })}
         </nav>
 
-        {/* Subscription Promo widget for Free Vendors */}
+   
         {isVendor && !isPremium && (
           <div className="p-4 m-4 bg-gradient-to-br from-emerald-50 to-teal-50 border border-emerald-200 rounded-2xl">
             <div className="flex items-center gap-2 text-emerald-900 font-bold text-xs mb-1">
@@ -152,7 +151,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
           </div>
         )}
 
-        {/* Back to Home Link */}
+        
         <div className="p-4 border-t border-emerald-100">
           <Link
             href="/"
@@ -164,7 +163,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
         </div>
       </aside>
 
-      {/* Main Content Area */}
+    
       <main className="flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto w-full">
         {children}
       </main>

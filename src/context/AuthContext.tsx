@@ -29,7 +29,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [token, setToken] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  // Load user session from localStorage or verify with backend API
   useEffect(() => {
     const initAuth = async () => {
       try {
@@ -41,7 +40,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           setToken(storedToken);
           setUser(parsedUser);
 
-          // Try to verify live session with API
+         
           try {
             const res = await fetch(`${API_BASE}/auth/me`, {
               headers: { Authorization: `Bearer ${storedToken}` },
@@ -53,14 +52,14 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
                 localStorage.setItem('pizzaarea_user', JSON.stringify(data.user));
               }
             } else if (res.status === 401 || res.status === 403) {
-              // Token invalid or user blocked
+       
               localStorage.removeItem('pizzaarea_token');
               localStorage.removeItem('pizzaarea_user');
               setToken(null);
               setUser(null);
             }
           } catch {
-            // Server offline, keep local user state for uninterrupted offline preview
+    
           }
         }
       } catch (err) {
@@ -76,7 +75,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const login = async (email: string, password: string) => {
     setIsLoading(true);
     try {
-      // 1. Try real backend API
+     
       try {
         const res = await fetch(`${API_BASE}/auth/login`, {
           method: 'POST',
@@ -95,10 +94,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           return { success: false, message: data.message || 'Login failed' };
         }
       } catch {
-        // Fallback to local demo accounts if server is unreachable
       }
 
-      // 2. Demo local accounts fallback
       const foundDemo = INITIAL_USERS.find(
         (u) => u.email.toLowerCase() === email.toLowerCase()
       );
@@ -131,7 +128,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   }) => {
     setIsLoading(true);
     try {
-      // 1. Try real backend API
       try {
         const res = await fetch(`${API_BASE}/auth/register`, {
           method: 'POST',
@@ -150,10 +146,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           return { success: false, message: result.message || 'Registration failed' };
         }
       } catch {
-        // Fallback to local registration if server is offline
+   
       }
 
-      // 2. Local Fallback Registration
       const newUser: User = {
         id: `user_${Date.now()}`,
         name: data.name,
@@ -203,10 +198,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           return { success: true, message: 'Google Sign In successful!', role: data.user.role };
         }
       } catch {
-        // Fallback
+    
       }
 
-      // Fallback
+   
       const newUser: User = {
         id: `google_user_${Date.now()}`,
         name: 'Google Pizza Explorer',
@@ -260,7 +255,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         }
       }
 
-      // Local update
+    
       const updatedUser: User = {
         ...user,
         name: data.name,
@@ -289,7 +284,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         }
       }
     } catch {
-      // ignore
+     
     }
   };
 

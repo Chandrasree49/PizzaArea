@@ -1,4 +1,4 @@
-// pizzahub-client/src/components/ProtectedRoute.tsx
+
 'use client';
 
 import React, { useEffect } from 'react';

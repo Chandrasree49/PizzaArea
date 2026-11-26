@@ -10,7 +10,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
           
-          {/* Brand Col */}
+      
           <div className="space-y-4">
             <Link href="/" className="flex items-center gap-2.5">
               <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-[#15803D] to-[#22C55E] flex items-center justify-center text-white shadow-md">
@@ -23,7 +23,7 @@ export default function Footer() {
             <p className="text-sm text-gray-600 leading-relaxed">
               Your premier eco-conscious destination for stone-baked artisanal pizzas, farm-fresh organic toppings, and speedy 30-minute eco-friendly delivery.
             </p>
-            {/* Social Icons including the NEW X logo */}
+            
             <div className="flex items-center gap-3 pt-2">
         
               <a
