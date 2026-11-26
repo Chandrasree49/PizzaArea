@@ -14,7 +14,7 @@ export default function CustomerOrdersPage() {
   const { orders, cancelOrder } = usePizza();
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
 
-  // Filter orders for this customer
+  
   const customerOrders = orders.filter((o) => o.customerId === user?.id);
 
   const handleCancel = async (orderId: string) => {
@@ -56,7 +56,7 @@ export default function CustomerOrdersPage() {
       <DashboardLayout>
         <div className="space-y-6">
           
-          {/* Header */}
+          
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
               <h1 className="text-2xl font-black text-gray-900">My Pizza Orders</h1>
@@ -69,7 +69,7 @@ export default function CustomerOrdersPage() {
             </span>
           </div>
 
-          {/* Orders List / Cards */}
+  
           {customerOrders.length === 0 ? (
             <div className="bg-white rounded-3xl border border-emerald-100 p-12 text-center shadow-xs">
               <Pizza className="w-12 h-12 text-emerald-200 mx-auto mb-3" />
@@ -85,7 +85,7 @@ export default function CustomerOrdersPage() {
                   key={order._id}
                   className="bg-white rounded-2xl border border-emerald-100 shadow-xs p-5 hover:shadow-md transition-shadow flex flex-col md:flex-row md:items-center justify-between gap-4"
                 >
-                  {/* Left: Pizza & Vendor info */}
+              
                   <div className="flex items-center gap-4">
                     <img
                       src={order.itemImage}
@@ -109,7 +109,7 @@ export default function CustomerOrdersPage() {
                     </div>
                   </div>
 
-                  {/* Middle / Right: Status and Actions */}
+                  
                   <div className="flex items-center justify-between md:justify-end gap-3 pt-3 md:pt-0 border-t md:border-t-0 border-gray-100">
                     <span
                       className={`px-3 py-1 rounded-full text-[11px] font-black uppercase tracking-wider ${
@@ -146,7 +146,7 @@ export default function CustomerOrdersPage() {
             </div>
           )}
 
-          {/* Order Details Modal */}
+          
           {selectedOrder && (
             <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-gray-950/60 backdrop-blur-xs animate-in fade-in">
               <div className="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-emerald-100 relative">

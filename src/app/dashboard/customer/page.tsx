@@ -12,7 +12,7 @@ export default function CustomerDashboardOverview() {
   const { user } = useAuth();
   const { orders } = usePizza();
 
-  // Filter orders for this customer
+  
   const customerOrders = orders.filter((o) => o.customerId === user?.id);
 
   const totalOrders = customerOrders.length;
@@ -27,7 +27,7 @@ export default function CustomerDashboardOverview() {
       <DashboardLayout>
         <div className="space-y-8">
           
-          {/* Welcome Banner */}
+        
           <div className="bg-gradient-to-r from-emerald-100/90 via-white to-emerald-50 p-6 sm:p-8 rounded-3xl border border-emerald-200/80 shadow-xs flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
             <div>
               <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-800 bg-emerald-100 px-3 py-1 rounded-full">
@@ -50,7 +50,7 @@ export default function CustomerDashboardOverview() {
             </Link>
           </div>
 
-          {/* Stats Cards */}
+    
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <div className="bg-white p-5 rounded-2xl border border-emerald-100 shadow-xs flex items-center justify-between">
               <div>

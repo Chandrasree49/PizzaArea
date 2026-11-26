@@ -34,7 +34,7 @@ export default function BrowseMenuPage() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
       
-     
+    
       <div className="bg-gradient-to-r from-emerald-100/90 via-white to-emerald-50 p-8 sm:p-10 rounded-3xl border border-emerald-200 shadow-xs flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
         <div>
           <span className="text-xs font-black uppercase tracking-wider text-emerald-900 bg-emerald-100 px-3 py-1 rounded-full flex items-center gap-1.5 w-fit">
@@ -62,10 +62,8 @@ export default function BrowseMenuPage() {
         )}
       </div>
 
-  
       <div className="bg-white p-6 rounded-3xl border border-emerald-100 shadow-xs space-y-4">
-        
-        
+   
         <div className="relative">
           <Search className="w-5 h-5 text-gray-400 absolute left-4 top-1/2 -translate-y-1/2" />
           <input
@@ -76,7 +74,6 @@ export default function BrowseMenuPage() {
             className="w-full pl-12 pr-4 py-3.5 bg-emerald-50/40 border border-emerald-200/70 rounded-2xl text-sm font-medium text-gray-800 placeholder-gray-400 focus:outline-hidden focus:border-[#16A34A] focus:ring-2 focus:ring-emerald-100 transition-all"
           />
         </div>
-
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
           
@@ -147,8 +144,7 @@ export default function BrowseMenuPage() {
               <span>Reset All Filters</span>
             </button>
           </div>
-        )}
-
+        )
       </div>
 
       {isLoading ? (
