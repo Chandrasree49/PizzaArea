@@ -26,7 +26,7 @@ export default function AdminDashboardOverview() {
       <DashboardLayout>
         <div className="space-y-8">
           
-          {/* Welcome Banner */}
+      
           <div className="bg-gradient-to-r from-emerald-100/80 via-white to-teal-50 p-6 sm:p-8 rounded-3xl border border-emerald-200/70 shadow-xs flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
             <div>
               <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-800 bg-emerald-100 px-3 py-1 rounded-full flex items-center gap-1.5 w-fit">
@@ -51,10 +51,10 @@ export default function AdminDashboardOverview() {
             </div>
           </div>
 
-          {/* Core Metric Cards */}
+      
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             
-            {/* Total Users */}
+          
             <div className="bg-white p-6 rounded-3xl border border-emerald-100 shadow-xs flex items-center justify-between">
               <div>
                 <p className="text-xs font-bold text-gray-500">Registered Accounts</p>
@@ -68,7 +68,7 @@ export default function AdminDashboardOverview() {
               </div>
             </div>
 
-            {/* Menu Items */}
+          
             <div className="bg-white p-6 rounded-3xl border border-emerald-100 shadow-xs flex items-center justify-between">
               <div>
                 <p className="text-xs font-bold text-gray-500">Total Menu Catalog</p>
@@ -82,7 +82,7 @@ export default function AdminDashboardOverview() {
               </div>
             </div>
 
-            {/* Platform Revenue */}
+            
             <div className="bg-white p-6 rounded-3xl border border-emerald-100 shadow-xs flex items-center justify-between">
               <div>
                 <p className="text-xs font-bold text-gray-500">Stripe Subscription Volume</p>
@@ -100,7 +100,7 @@ export default function AdminDashboardOverview() {
 
           </div>
 
-          {/* Quick Management Links */}
+          
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <Link
               href="/dashboard/admin/users"

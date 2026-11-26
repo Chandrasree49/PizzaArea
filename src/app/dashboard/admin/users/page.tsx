@@ -15,7 +15,7 @@ export default function AdminManageUsersPage() {
   const [search, setSearch] = useState('');
   const [roleFilter, setRoleFilter] = useState('All');
 
-  // Filter users
+
   const filteredUsers = usersList.filter((u) => {
     const matchSearch =
       search === '' ||
@@ -73,7 +73,7 @@ export default function AdminManageUsersPage() {
       <DashboardLayout>
         <div className="space-y-6">
           
-          {/* Header */}
+          
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
               <h1 className="text-2xl font-black text-gray-900">Manage Users</h1>
@@ -86,7 +86,7 @@ export default function AdminManageUsersPage() {
             </span>
           </div>
 
-          {/* Search & Filter Bar */}
+          
           <div className="bg-white p-4 rounded-2xl border border-emerald-100 shadow-xs flex flex-col sm:flex-row gap-4">
             <div className="relative flex-1">
               <Search className="w-4 h-4 text-gray-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
@@ -113,7 +113,7 @@ export default function AdminManageUsersPage() {
             </div>
           </div>
 
-          {/* Users Table */}
+        
           <div className="bg-white rounded-3xl border border-emerald-100 shadow-xs overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs">
@@ -133,7 +133,7 @@ export default function AdminManageUsersPage() {
                     return (
                       <tr key={u.id} className="hover:bg-emerald-50/30 transition-colors">
                         
-                        {/* User Profile */}
+              
                         <td className="py-3.5 px-6 flex items-center gap-3">
                           <img
                             src={u.image || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=300&q=80'}
@@ -146,7 +146,7 @@ export default function AdminManageUsersPage() {
                           </div>
                         </td>
 
-                        {/* Role */}
+                  
                         <td className="py-3.5 px-4">
                           <span
                             className={`px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider ${
@@ -161,12 +161,12 @@ export default function AdminManageUsersPage() {
                           </span>
                         </td>
 
-                        {/* Business Name */}
+              
                         <td className="py-3.5 px-4 text-gray-700 font-medium">
                           {u.businessName || '—'}
                         </td>
 
-                        {/* Plan */}
+          
                         <td className="py-3.5 px-4">
                           {u.role === 'vendor' ? (
                             <span
@@ -183,7 +183,7 @@ export default function AdminManageUsersPage() {
                           )}
                         </td>
 
-                        {/* Status */}
+          
                         <td className="py-3.5 px-4">
                           {u.isBlocked ? (
                             <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-red-100 text-red-700">
