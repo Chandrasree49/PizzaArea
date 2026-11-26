@@ -12,12 +12,12 @@ export default function VendorDashboardOverview() {
   const { user, isPremium } = useAuth();
   const { items, orders } = usePizza();
 
-  // Vendor's items
+
   const vendorItems = items.filter((i) => i.vendorId === user?.id);
   const totalItems = vendorItems.length;
   const activeItems = vendorItems.filter((i) => i.status === 'approved').length;
 
-  // Vendor's orders
+  
   const vendorOrders = orders.filter((o) => o.vendorId === user?.id);
   const pendingOrders = vendorOrders.filter((o) => o.status === 'pending').length;
   const acceptedOrders = vendorOrders.filter((o) => o.status === 'accepted').length;
@@ -27,7 +27,7 @@ export default function VendorDashboardOverview() {
       <DashboardLayout>
         <div className="space-y-8">
           
-          {/* Welcome & Plan Header */}
+      
           <div className="bg-gradient-to-r from-emerald-100/90 via-white to-emerald-50 p-6 sm:p-8 rounded-3xl border border-emerald-200/80 shadow-xs flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
             <div>
               <div className="flex items-center gap-2">
@@ -73,7 +73,7 @@ export default function VendorDashboardOverview() {
             </div>
           </div>
 
-          {/* Statistics Grid */}
+        
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
             <div className="bg-white p-5 rounded-2xl border border-emerald-100 shadow-xs">
               <div className="flex items-center justify-between text-gray-500 mb-2">
@@ -127,7 +127,7 @@ export default function VendorDashboardOverview() {
             </div>
           </div>
 
-          {/* Quick Shortcuts */}
+      
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="bg-white rounded-3xl border border-emerald-100 shadow-xs p-6">
               <h3 className="text-base font-black text-gray-900 mb-2">Menu Item Inventory</h3>

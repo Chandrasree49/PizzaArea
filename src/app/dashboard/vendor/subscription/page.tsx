@@ -19,7 +19,7 @@ export default function VendorSubscriptionPage() {
     setIsProcessing(false);
 
     if (res.url) {
-      // Redirecting to Stripe checkout
+    
       window.location.href = res.url;
     } else if (res.success) {
       Swal.fire({
@@ -43,7 +43,7 @@ export default function VendorSubscriptionPage() {
       <DashboardLayout>
         <div className="max-w-4xl mx-auto space-y-8">
           
-          {/* Header */}
+  
           <div className="text-center max-w-xl mx-auto">
             <span className="text-xs font-black uppercase tracking-wider text-emerald-900 bg-emerald-100 px-3 py-1 rounded-full">
               Vendor Subscription Plans
@@ -56,7 +56,7 @@ export default function VendorSubscriptionPage() {
             </p>
           </div>
 
-          {/* Current Status Banner */}
+          
           <div className="bg-white p-4 rounded-2xl border border-emerald-100 shadow-xs flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-xl bg-emerald-100 text-[#16A34A] flex items-center justify-center font-black">
@@ -82,10 +82,10 @@ export default function VendorSubscriptionPage() {
             </span>
           </div>
 
-          {/* Pricing Grid */}
+          
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
             
-            {/* Free Plan */}
+        
             <div className="bg-white rounded-3xl border border-gray-200 p-8 shadow-xs flex flex-col justify-between">
               <div>
                 <div className="flex items-center justify-between mb-4">
@@ -131,7 +131,7 @@ export default function VendorSubscriptionPage() {
               </button>
             </div>
 
-            {/* Premium Plan (Stripe) */}
+            
             <div className="bg-gradient-to-b from-[#F7FBF8] to-emerald-50/70 rounded-3xl border-2 border-emerald-500 p-8 shadow-xl flex flex-col justify-between relative overflow-hidden">
               <div className="absolute top-0 right-0 bg-gradient-to-l from-emerald-600 to-teal-700 text-white text-[10px] font-black uppercase tracking-wider py-1 px-4 rounded-bl-xl shadow-xs">
                 Recommended
@@ -196,7 +196,7 @@ export default function VendorSubscriptionPage() {
 
           </div>
 
-          {/* Secure Stripe notice */}
+        
           <div className="p-4 bg-white rounded-2xl border border-gray-100 text-center text-xs text-gray-500 flex items-center justify-center gap-2">
             <ShieldCheck className="w-4 h-4 text-emerald-600" />
             <span>Payments are encrypted and processed securely by Stripe Checkout with automatic webhook verification.</span>

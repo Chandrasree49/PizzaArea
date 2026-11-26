@@ -19,7 +19,6 @@ export default function VendorMenuItemsPage() {
   const [editPrice, setEditPrice] = useState('');
   const [editDesc, setEditDesc] = useState('');
 
-  // Show only vendor's own items
   const vendorItems = items.filter((i) => i.vendorId === user?.id);
 
   const handleToggleAvailability = async (item: MenuItem) => {
@@ -103,7 +102,7 @@ export default function VendorMenuItemsPage() {
       <DashboardLayout>
         <div className="space-y-6">
           
-          {/* Header */}
+        
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
               <h1 className="text-2xl font-black text-gray-900">My Menu Items</h1>
@@ -121,7 +120,7 @@ export default function VendorMenuItemsPage() {
             </Link>
           </div>
 
-          {/* Items Table / Cards */}
+       
           {vendorItems.length === 0 ? (
             <div className="bg-white rounded-3xl border border-emerald-100 p-12 text-center shadow-xs">
               <Pizza className="w-12 h-12 text-emerald-200 mx-auto mb-3" />
@@ -154,7 +153,7 @@ export default function VendorMenuItemsPage() {
                     {vendorItems.map((item) => (
                       <tr key={item._id} className="hover:bg-emerald-50/30 transition-colors">
                         
-                        {/* Item Name & Image */}
+                        
                         <td className="py-4 px-6 flex items-center gap-3">
                           <img
                             src={item.images[0]}
@@ -177,7 +176,7 @@ export default function VendorMenuItemsPage() {
 
                         <td className="py-4 px-4 text-gray-600">{item.location}</td>
 
-                        {/* Status Badge */}
+                       
                         <td className="py-4 px-4">
                           <span
                             className={`px-2.5 py-1 rounded-full text-[10px] font-black uppercase ${
@@ -194,10 +193,10 @@ export default function VendorMenuItemsPage() {
                           </span>
                         </td>
 
-                        {/* Actions */}
+                       
                         <td className="py-4 px-6 text-right">
                           <div className="flex items-center justify-end gap-2">
-                            {/* Toggle Live Availability */}
+                    
                             {item.status !== 'rejected' && item.status !== 'pending' && (
                               <button
                                 onClick={() => handleToggleAvailability(item)}
@@ -212,7 +211,6 @@ export default function VendorMenuItemsPage() {
                               </button>
                             )}
 
-                            {/* Edit Button */}
                             <button
                               onClick={() => openEditModal(item)}
                               title="Edit item"
@@ -221,7 +219,7 @@ export default function VendorMenuItemsPage() {
                               <Edit3 className="w-3.5 h-3.5" />
                             </button>
 
-                            {/* Delete Button */}
+                          
                             <button
                               onClick={() => handleDelete(item._id)}
                               title="Delete item"
@@ -240,7 +238,6 @@ export default function VendorMenuItemsPage() {
             </div>
           )}
 
-          {/* Quick Edit Modal */}
           {editingItem && (
             <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-gray-950/60 backdrop-blur-xs animate-in fade-in">
               <div className="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-emerald-100 relative">

@@ -12,7 +12,7 @@ export default function VendorOrdersPage() {
   const { user } = useAuth();
   const { orders, updateOrderStatus } = usePizza();
 
-  // Show only orders placed for this vendor's items
+  
   const vendorOrders = orders.filter((o) => o.vendorId === user?.id);
 
   const handleStatusUpdate = async (orderId: string, status: 'accepted' | 'rejected') => {
@@ -55,7 +55,7 @@ export default function VendorOrdersPage() {
       <DashboardLayout>
         <div className="space-y-6">
           
-          {/* Header */}
+        
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
               <h1 className="text-2xl font-black text-gray-900">Incoming Customer Orders</h1>
@@ -68,7 +68,7 @@ export default function VendorOrdersPage() {
             </span>
           </div>
 
-          {/* Orders List */}
+        
           {vendorOrders.length === 0 ? (
             <div className="bg-white rounded-3xl border border-emerald-100 p-12 text-center shadow-xs">
               <Pizza className="w-12 h-12 text-emerald-200 mx-auto mb-3" />
@@ -86,7 +86,7 @@ export default function VendorOrdersPage() {
                 >
                   <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
                     
-                    {/* Left: Pizza details & Customer info */}
+                    
                     <div className="flex items-start gap-4">
                       <img
                         src={order.itemImage}
@@ -101,13 +101,13 @@ export default function VendorOrdersPage() {
                           </span>
                         </div>
 
-                        {/* Customer details */}
+                    
                         <p className="text-xs text-gray-600 flex items-center gap-1.5">
                           <User className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
                           <span>Customer: <strong className="text-gray-800">{order.customerName}</strong> ({order.customerEmail})</span>
                         </p>
 
-                        {/* Delivery Info */}
+                      
                         <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-gray-500 pt-1">
                           <span className="flex items-center gap-1">
                             <Calendar className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
@@ -119,7 +119,7 @@ export default function VendorOrdersPage() {
                           </span>
                         </div>
 
-                        {/* Message */}
+                    
                         {order.message && (
                           <p className="text-xs text-gray-600 italic bg-emerald-50/70 p-2.5 rounded-xl mt-2 flex items-start gap-1.5 border border-emerald-100">
                             <MessageSquare className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
@@ -129,7 +129,7 @@ export default function VendorOrdersPage() {
                       </div>
                     </div>
 
-                    {/* Right: Actions */}
+                    
                     <div className="flex flex-col sm:flex-row lg:flex-col items-end justify-between gap-3 shrink-0 pt-4 lg:pt-0 border-t lg:border-t-0 border-gray-100">
                       <span
                         className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider ${
@@ -143,7 +143,7 @@ export default function VendorOrdersPage() {
                         Status: {order.status}
                       </span>
 
-                      {/* Accept / Reject buttons (Only pending orders can be modified, once) */}
+                      
                       {order.status === 'pending' ? (
                         <div className="flex items-center gap-2">
                           <button

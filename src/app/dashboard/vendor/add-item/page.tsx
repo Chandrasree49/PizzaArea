@@ -24,7 +24,7 @@ export default function AddMenuItemPage() {
   const [previewUrl, setPreviewUrl] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Check free plan restriction
+
   const vendorItemCount = items.filter(
     (i) => i.vendorId === user?.id && (i.status === 'approved' || i.status === 'pending')
   ).length;
@@ -119,7 +119,7 @@ export default function AddMenuItemPage() {
       <DashboardLayout>
         <div className="max-w-3xl mx-auto space-y-6">
           
-          {/* Header */}
+       
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
               <h1 className="text-2xl font-black text-gray-900">Add New Menu Item</h1>
@@ -141,7 +141,7 @@ export default function AddMenuItemPage() {
             </div>
           </div>
 
-          {/* Limit Notice if applicable */}
+        
           {isFreeLimitReached && (
             <div className="p-4 bg-amber-50 border border-amber-200 rounded-2xl flex items-center justify-between text-xs text-amber-900">
               <span>
@@ -155,12 +155,9 @@ export default function AddMenuItemPage() {
               </button>
             </div>
           )}
-
-          {/* Form */}
           <div className="bg-white rounded-3xl border border-emerald-100 shadow-sm p-6 sm:p-8">
             <form onSubmit={handleSubmit} className="space-y-5">
-              
-              {/* Item Name */}
+            
               <div>
                 <label className="block text-xs font-bold text-gray-700 mb-1 flex items-center gap-1.5">
                   <Pizza className="w-3.5 h-3.5 text-emerald-600" />
@@ -176,7 +173,7 @@ export default function AddMenuItemPage() {
                 />
               </div>
 
-              {/* Category & Price */}
+              
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-xs font-bold text-gray-700 mb-1 flex items-center gap-1.5">
@@ -214,7 +211,7 @@ export default function AddMenuItemPage() {
                 </div>
               </div>
 
-              {/* Location */}
+             
               <div>
                 <label className="block text-xs font-bold text-gray-700 mb-1 flex items-center gap-1.5">
                   <MapPin className="w-3.5 h-3.5 text-emerald-600" />
@@ -233,7 +230,7 @@ export default function AddMenuItemPage() {
                 </select>
               </div>
 
-              {/* Description */}
+             
               <div>
                 <label className="block text-xs font-bold text-gray-700 mb-1 flex items-center gap-1.5">
                   <FileText className="w-3.5 h-3.5 text-emerald-600" />
@@ -249,7 +246,7 @@ export default function AddMenuItemPage() {
                 />
               </div>
 
-              {/* ImgBB File Upload */}
+           
               <div>
                 <label className="block text-xs font-bold text-gray-700 mb-1 flex items-center gap-1.5">
                   <Upload className="w-3.5 h-3.5 text-emerald-600" />
@@ -278,7 +275,7 @@ export default function AddMenuItemPage() {
                 ℹ️ <strong>Review Notice:</strong> Newly submitted items will be saved with status <strong>Pending</strong> until approved by a PizzaArea Administrator.
               </div>
 
-              {/* Buttons */}
+         
               <div className="pt-3 flex items-center justify-end gap-3">
                 <button
                   type="button"
