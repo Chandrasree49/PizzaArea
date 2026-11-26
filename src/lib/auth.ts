@@ -1,4 +1,4 @@
-// pizzahub-client/src/lib/auth.ts
+
 import { betterAuth } from "better-auth";
 import { MongoClient } from "mongodb";
 import { mongodbAdapter } from "@better-auth/mongo-adapter";
@@ -18,7 +18,7 @@ export const auth = betterAuth({
         type: "string",
         required: false,
         defaultValue: "customer",
-        input: true, // Allows customer or vendor role selection during signup
+        input: true, 
       },
       businessName: {
         type: "string",
@@ -50,7 +50,7 @@ export const auth = betterAuth({
   session: {
     cookieCache: {
       enabled: true,
-      maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
+      maxAge: 1000 * 60 * 60 * 24 * 7, 
     },
   },
 });

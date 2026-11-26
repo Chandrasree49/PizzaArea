@@ -1,4 +1,4 @@
-// pizzahub-client/src/data/initialData.ts
+
 import { MenuItem, Order, Transaction, User } from '../types';
 
 export const INITIAL_USERS: User[] = [
