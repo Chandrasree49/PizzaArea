@@ -49,7 +49,7 @@ export const auth = betterAuth({
       trustedProviders: ["google"],
     },
   },
-  
+
   socialProviders: {
     google: {
       clientId: process.env.GOOGLE_CLIENT_ID as string,
@@ -64,7 +64,7 @@ export const auth = betterAuth({
   session: {
     cookieCache: {
       enabled: true,
-      maxAge: 1000 * 60 * 60 * 24 * 7, 
+      maxAge: 60 * 60 * 24 * 7, 
     },
   },
 });

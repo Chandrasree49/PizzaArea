@@ -130,8 +130,7 @@ export default function BrowseMenuPage() {
           </div>
 
         </div>
-
-       lectedLocation !== 'All' || sortBy !== 'newest') && (
+        {(searchQuery || selectedCategory !== 'All' || selectedLocation !== 'All' || sortBy !== 'newest') && (
           <div className="pt-3 border-t border-gray-100 flex items-center justify-between">
             <span className="text-xs font-semibold text-gray-500">
               Showing {filteredItems.length} filtered results
@@ -144,7 +143,8 @@ export default function BrowseMenuPage() {
               <span>Reset All Filters</span>
             </button>
           </div>
-        )
+        )}
+           
       </div>
 
       {isLoading ? (
