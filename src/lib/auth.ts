@@ -1,7 +1,8 @@
+// pizzahub-client/src/lib/auth.ts
 import { betterAuth } from "better-auth";
 import { MongoClient } from "mongodb";
 import { mongodbAdapter } from "@better-auth/mongo-adapter";
-
+import { jwt } from "better-auth/plugins";
 
 const client = new MongoClient(process.env.DB_URI as string);
 const db = client.db("pizza-area");
@@ -14,21 +15,42 @@ export const auth = betterAuth({
   user: {
     additionalFields: {
       role: {
-        type: ["admin", "vendor", "customer"],
-        input: false,
+        type: "string",
+        required: false,
         defaultValue: "customer",
+        input: true, // Allows customer or vendor role selection during signup
+      },
+      businessName: {
+        type: "string",
+        required: false,
+        defaultValue: "",
+        input: true,
+      },
+      isBlocked: {
+        type: "boolean",
+        required: false,
+        defaultValue: false,
+      },
+      subscriptionPlan: {
+        type: "string",
+        required: false,
+        defaultValue: "free",
       },
     },
   },
 
-  //...other options
   emailAndPassword: {
     enabled: true,
   },
-  socialProviders: {
-    github: {
-      clientId: process.env.GITHUB_CLIENT_ID as string,
-      clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
+
+  plugins: [
+    jwt()
+  ],
+
+  session: {
+    cookieCache: {
+      enabled: true,
+      maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
     },
   },
 });
