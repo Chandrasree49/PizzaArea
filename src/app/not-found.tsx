@@ -9,7 +9,7 @@ export default function NotFound() {
     <div className="min-h-[75vh] flex items-center justify-center px-4 py-16">
       <div className="max-w-md w-full text-center space-y-6">
         
-        {/* Pizza 404 Illustration */}
+  
         <div className="relative w-28 h-28 mx-auto">
           <div className="w-28 h-28 rounded-full bg-emerald-100 flex items-center justify-center text-[#16A34A] shadow-inner">
             <Pizza className="w-14 h-14 animate-spin [animation-duration:8s]" />

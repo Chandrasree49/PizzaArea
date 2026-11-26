@@ -31,7 +31,7 @@ Real-Time Lifecycle Tracking: Full order status lifecycle (Pending, Accepted, Re
 Full Menu CRUD Management: Vendors can create, update, delete, and manage the availability of their menu items.
 ImgBB Cloud Integration: Seamless file upload for menu item photos directly through the ImgBB API.
 Quality Control & Approval Workflow: Newly created menu items are placed in a Pending state until reviewed and approved by an Administrator, guaranteeing high menu standards.
-5. Stripe Checkout & Premium Subscription with Webhook Verification
+. Stripe Checkout & Premium Subscription with Webhook Verification
 Vendor Monetization: Free-tier vendors are restricted to a maximum of 3 active items. Vendors can upgrade to Premium ($19.99/mo) to unlock unlimited item publishing.
 Automated Webhook Verification: Subscriptions and transactions are securely confirmed and activated only upon verified Stripe Webhook events, ensuring zero frontend-tampering.
 Promotional Benefits: Premium vendors receive featured priority placement on the homepage banner/sections and a verified "PRO / Premium" badge on their pizzas.

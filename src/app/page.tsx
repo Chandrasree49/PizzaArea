@@ -67,7 +67,7 @@ export default function HomePage() {
       
       <section className="relative overflow-hidden min-h-[600px] lg:min-h-[680px] flex items-center justify-center bg-stone-950 border-b border-emerald-900/30">
         
-        {/* Background Image */}
+      
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-105 transition-transform duration-1000"
           style={{
@@ -75,21 +75,19 @@ export default function HomePage() {
           }}
         />
 
-        {/* Sophisticated Dark Gradient & Green Tint Overlay for Maximum Readability */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-stone-950/75 to-black/90 backdrop-blur-[1px]" />
         
-        {/* Subtle Ambient Emerald Radial Glow in Center */}
+       
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-emerald-500/15 rounded-full blur-3xl pointer-events-none" />
 
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center py-20 sm:py-28 lg:py-32 flex flex-col items-center justify-center">
           
-          {/* Herb & Artisan Badge */}
+         
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-xs font-black uppercase tracking-wider backdrop-blur-md mb-6 shadow-lg shadow-black/20">
             <Leaf className="w-4 h-4 text-emerald-400 animate-pulse" />
             <span>Farm-to-Table Artisan Wood-Fired Pizzeria</span>
           </div>
 
-          {/* Main Headline - Centered */}
           <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-white tracking-tight leading-[1.12] mb-6 drop-shadow-md">
             Hot & Fresh Pizza <br />
             <span className="text-[#22C55E] bg-gradient-to-r from-emerald-400 via-green-400 to-teal-300 bg-clip-text text-transparent">
@@ -97,12 +95,11 @@ export default function HomePage() {
             </span>
           </h1>
 
-          {/* Short Description - Centered */}
           <p className="text-base sm:text-lg lg:text-xl text-gray-200 max-w-2xl mx-auto leading-relaxed font-normal mb-8 text-center drop-shadow-sm">
             Discover artisan local pizzerias, browse mouthwatering stone-baked slices, and order hand-tossed Italian crusts made from authentic San Marzano tomatoes, organic basil, and whole milk mozzarella.
           </p>
 
-          {/* Centered CTA Buttons */}
+          
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto mb-12">
             <Link
               href="/menu"
@@ -122,7 +119,6 @@ export default function HomePage() {
             </Link>
           </div>
 
-          {/* Trust Indicators Bar - Centered */}
           <div className="grid grid-cols-3 gap-3 sm:gap-6 max-w-xl mx-auto w-full pt-8 border-t border-white/15">
             <div className="p-3 sm:p-4 bg-white/10 backdrop-blur-md rounded-2xl border border-white/15 shadow-md">
               <h4 className="text-xl sm:text-3xl font-black text-white">30m</h4>
@@ -143,7 +139,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 2. Dynamic Section 1: Featured Menu Items (at least 6 items from DB) */}
+     
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
           <div>
@@ -167,8 +163,6 @@ export default function HomePage() {
             <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
-
-        {/* Featured Items Grid (Equal height and width cards) */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {featuredItems.map((item) => (
             <PizzaCard key={item._id} item={item} />
@@ -176,7 +170,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 3. Dynamic Section 2: Pizza Categories */}
+   
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-2xl mx-auto mb-12">
           <span className="text-[#16A34A] font-black text-xs uppercase tracking-wider">
@@ -219,7 +213,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 4. Extra Section 1 (Required): Why Choose PizzaHub? */}
       <section className="bg-gradient-to-b from-[#F7FBF8] via-emerald-50/50 to-[#F7FBF8] py-16 border-y border-emerald-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-14">
@@ -278,7 +271,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 5. Extra Section 2: How PizzaHub Works */}
+     
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-2xl mx-auto mb-14">
           <span className="text-[#16A34A] font-black text-xs uppercase tracking-wider">
@@ -347,7 +340,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 6. Call to Action Banner (Green Gradient) */}
+      
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-gradient-to-r from-[#15803D] via-[#16A34A] to-[#22C55E] rounded-3xl p-8 sm:p-14 text-white shadow-2xl relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-8">
           <div className="max-w-xl space-y-4">

@@ -45,12 +45,12 @@ function RegisterContent() {
     setIsSubmitting(true);
 
  
-  // pizzahub-client/src/app/signup/page.tsx
+ 
 const { error } = await authClient.signUp.email({
   name,
   email,
   password,
-  // Send custom additionalFields defined in auth.ts
+
   role,
   businessName: role === "vendor" ? businessName : "",
   callbackURL: role === "vendor" ? "/dashboard/vendor" : "/dashboard/customer",
