@@ -8,8 +8,7 @@ export default function PaymentCancelPage() {
   return (
     <div className="min-h-[80vh] flex items-center justify-center px-4 py-16">
       <div className="max-w-md w-full bg-white rounded-3xl border border-emerald-100 shadow-xl p-8 sm:p-10 text-center space-y-6">
-        
-        {/* Cancel Icon */}
+  
         <div className="w-16 h-16 rounded-full bg-red-100 text-red-600 flex items-center justify-center mx-auto shadow-xs">
           <XCircle className="w-8 h-8" />
         </div>

@@ -84,8 +84,7 @@ export default function ProfileSettingsPage() {
   return (
     <ProtectedRoute>
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-6">
-        
-        {/* Navigation */}
+      
         <Link
           href={getDashboardLink()}
           className="inline-flex items-center gap-1.5 text-xs font-bold text-gray-500 hover:text-[#16A34A] transition-colors"
@@ -94,7 +93,7 @@ export default function ProfileSettingsPage() {
           <span>Back to Dashboard</span>
         </Link>
 
-        {/* Header Banner */}
+     
         <div className="bg-white p-6 sm:p-8 rounded-3xl border border-emerald-100 shadow-xs flex flex-col sm:flex-row items-center gap-6">
           <div className="relative">
             <img
@@ -123,7 +122,6 @@ export default function ProfileSettingsPage() {
           </div>
         </div>
 
-        {/* Edit Form */}
         <div className="bg-white p-6 sm:p-8 rounded-3xl border border-emerald-100 shadow-xs">
           <h2 className="text-lg font-black text-gray-900 mb-1">Edit Profile Details</h2>
           <p className="text-xs text-gray-500 mb-6">
@@ -132,7 +130,7 @@ export default function ProfileSettingsPage() {
 
           <form onSubmit={handleSubmit} className="space-y-4">
             
-            {/* Full Name */}
+          
             <div>
               <label className="block text-xs font-bold text-gray-700 mb-1 flex items-center gap-1.5">
                 <User className="w-3.5 h-3.5 text-emerald-600" />
@@ -147,7 +145,6 @@ export default function ProfileSettingsPage() {
               />
             </div>
 
-            {/* Email (Read-Only) */}
             <div>
               <label className="block text-xs font-bold text-gray-700 mb-1 flex items-center gap-1.5">
                 <Mail className="w-3.5 h-3.5 text-emerald-600" />
@@ -161,7 +158,6 @@ export default function ProfileSettingsPage() {
               />
             </div>
 
-            {/* Business Name (Vendor only) */}
             {isVendor && (
               <div>
                 <label className="block text-xs font-bold text-gray-700 mb-1 flex items-center gap-1.5">
@@ -177,7 +173,7 @@ export default function ProfileSettingsPage() {
               </div>
             )}
 
-            {/* Profile Avatar Upload */}
+          
             <div>
               <label className="block text-xs font-bold text-gray-700 mb-1 flex items-center gap-1.5">
                 <Upload className="w-3.5 h-3.5 text-emerald-600" />
@@ -191,12 +187,12 @@ export default function ProfileSettingsPage() {
               />
             </div>
 
-            {/* Security Notice */}
+      
             <div className="p-3 bg-gray-50 rounded-xl text-[11px] text-gray-500 border border-gray-100">
               🔒 <strong>Security Notice:</strong> Your account role (<code>{user?.role}</code>) and subscription status are managed securely and cannot be modified through profile updates.
             </div>
 
-            {/* Save Button */}
+        
             <div className="pt-4 flex justify-end">
               <button
                 type="submit"

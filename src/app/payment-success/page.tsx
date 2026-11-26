@@ -16,7 +16,7 @@ function PaymentSuccessContent() {
   const [isVerifying, setIsVerifying] = useState(true);
 
   useEffect(() => {
-    // Show clean success alert using SweetAlert2
+ 
     Swal.fire({
       icon: 'success',
       title: 'Payment Successful!',
@@ -48,7 +48,7 @@ function PaymentSuccessContent() {
     <div className="min-h-[80vh] flex items-center justify-center px-4 py-16 bg-[#F7FBF8]">
       <div className="max-w-md w-full bg-white rounded-3xl border border-emerald-100 shadow-xl p-8 sm:p-10 text-center space-y-6">
         
-        {/* Animated Green Checkmark Icon */}
+        
         <div className="w-20 h-20 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto shadow-md">
           <CheckCircle2 className="w-12 h-12 text-[#16A34A] animate-pulse" />
         </div>
@@ -65,7 +65,6 @@ function PaymentSuccessContent() {
           </p>
         </div>
 
-        {/* Benefits summary card */}
         <div className="bg-emerald-50/60 p-4 rounded-2xl border border-emerald-100 text-left text-xs space-y-2 text-gray-700">
           <p className="font-bold text-gray-900 flex items-center gap-1.5">
             <Pizza className="w-4 h-4 text-[#16A34A]" /> What you now have:
@@ -78,7 +77,7 @@ function PaymentSuccessContent() {
           </ul>
         </div>
 
-        {/* Action Button */}
+      
         <div>
           <Link
             href="/dashboard/vendor"
@@ -99,7 +98,6 @@ function PaymentSuccessContent() {
   );
 }
 
-// Suspense boundary added to prevent Next.js build errors with useSearchParams
 export default function PaymentSuccessPage() {
   return (
     <Suspense fallback={

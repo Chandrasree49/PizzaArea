@@ -29,13 +29,12 @@ export default function ItemDetailsPage() {
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Order Form State
   const [deliveryDate, setDeliveryDate] = useState('');
   const [deliveryAddress, setDeliveryAddress] = useState('');
   const [message, setMessage] = useState('');
   const [showOrderModal, setShowOrderModal] = useState(false);
 
-  // Redirect to login if user is logged out (Requirement: Item Details is a private route)
+
   useEffect(() => {
     if (!authLoading && !user) {
       router.replace(`/signin?redirect=/menu/${id}`);
@@ -51,7 +50,7 @@ export default function ItemDetailsPage() {
     }
   }, [id, items, getItemById]);
 
-  // Set minimum delivery date to today
+  
   const today = new Date().toISOString().split('T')[0];
 
   if (authLoading) {
@@ -84,7 +83,7 @@ export default function ItemDetailsPage() {
     );
   }
 
-  // Check if item is eligible for ordering
+ 
   const isApproved = item.status === 'approved';
   const isOwnItem = user && user.id === item.vendorId;
 
@@ -132,8 +131,7 @@ export default function ItemDetailsPage() {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10">
-      
-      {/* Back button */}
+     
       <div>
         <Link
           href="/menu"
@@ -144,10 +142,9 @@ export default function ItemDetailsPage() {
         </Link>
       </div>
 
-      {/* Main Details Card */}
       <div className="bg-white rounded-3xl border border-emerald-100 shadow-md overflow-hidden grid grid-cols-1 lg:grid-cols-12 gap-8 p-6 sm:p-10">
         
-        {/* Left Column: Image Gallery (Multiple Images) */}
+  
         <div className="lg:col-span-6 space-y-4">
           <div className="relative h-80 sm:h-96 w-full rounded-2xl overflow-hidden bg-emerald-50/50 border border-emerald-100 shadow-xs">
             <img
@@ -162,7 +159,7 @@ export default function ItemDetailsPage() {
             )}
           </div>
 
-          {/* Multiple Image Thumbnails */}
+      
           {imagesList.length > 1 && (
             <div className="flex items-center gap-3 overflow-x-auto pb-2">
               {imagesList.map((imgUrl, idx) => (
@@ -182,10 +179,9 @@ export default function ItemDetailsPage() {
           )}
         </div>
 
-        {/* Right Column: Information & Order Action */}
         <div className="lg:col-span-6 flex flex-col justify-between space-y-6">
           <div>
-            {/* Category & Status */}
+    
             <div className="flex items-center gap-2 mb-3">
               <span className="px-3 py-1 bg-emerald-100 text-emerald-900 text-xs font-bold rounded-full">
                 {item.category}
@@ -203,12 +199,12 @@ export default function ItemDetailsPage() {
               </span>
             </div>
 
-            {/* Title */}
+         
             <h1 className="text-3xl sm:text-4xl font-black text-gray-900 tracking-tight mb-3">
               {item.itemName}
             </h1>
 
-            {/* Price */}
+         
             <div className="flex items-baseline gap-3 mb-6">
               <span className="text-3xl font-black text-[#16A34A]">
                 ${item.price.toFixed(2)}
@@ -218,7 +214,7 @@ export default function ItemDetailsPage() {
               </span>
             </div>
 
-            {/* Description */}
+      
             <div className="mb-6">
               <h3 className="text-xs font-bold uppercase tracking-wider text-gray-400 mb-2">
                 Flavor & Ingredients
@@ -228,7 +224,7 @@ export default function ItemDetailsPage() {
               </p>
             </div>
 
-            {/* Pizzeria & Location Details */}
+         
             <div className="grid grid-cols-2 gap-4 p-4 bg-emerald-50/50 rounded-2xl border border-emerald-100 mb-6">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0">
@@ -256,7 +252,7 @@ export default function ItemDetailsPage() {
             </div>
           </div>
 
-          {/* Role-Based Ordering Action Button */}
+          
           <div className="pt-4 border-t border-gray-100">
             {!isApproved ? (
               <div className="p-4 bg-amber-50 border border-amber-200 rounded-2xl text-xs text-amber-800 flex items-center gap-2">
@@ -290,7 +286,7 @@ export default function ItemDetailsPage() {
 
       </div>
 
-      {/* Order Placement Modal Form */}
+    
       {showOrderModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-gray-950/60 backdrop-blur-xs animate-in fade-in duration-200">
           <div className="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-emerald-100 relative">
@@ -311,7 +307,6 @@ export default function ItemDetailsPage() {
 
             <form onSubmit={handleOrderSubmit} className="space-y-4">
               
-              {/* Delivery Date */}
               <div>
                 <label className="block text-xs font-bold text-gray-700 mb-1.5 flex items-center gap-1.5">
                   <Calendar className="w-3.5 h-3.5 text-emerald-600" />
@@ -327,7 +322,7 @@ export default function ItemDetailsPage() {
                 />
               </div>
 
-              {/* Delivery Address */}
+             
               <div>
                 <label className="block text-xs font-bold text-gray-700 mb-1.5 flex items-center gap-1.5">
                   <Truck className="w-3.5 h-3.5 text-emerald-600" />
@@ -343,7 +338,7 @@ export default function ItemDetailsPage() {
                 />
               </div>
 
-              {/* Special Instructions Message */}
+             
               <div>
                 <label className="block text-xs font-bold text-gray-700 mb-1.5 flex items-center gap-1.5">
                   <MessageSquare className="w-3.5 h-3.5 text-emerald-600" />
@@ -358,12 +353,12 @@ export default function ItemDetailsPage() {
                 />
               </div>
 
-              {/* Payment Note as per instructions */}
+             
               <div className="p-3 bg-emerald-50 border border-emerald-100 rounded-xl text-[11px] text-emerald-900">
                 ℹ️ <strong>Cash / Terminal on Delivery:</strong> Payment is collected directly by the pizzeria delivery partner upon handover.
               </div>
 
-              {/* Submit Buttons */}
+         
               <div className="pt-3 flex items-center justify-end gap-3">
                 <button
                   type="button"
