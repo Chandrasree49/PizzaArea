@@ -197,7 +197,7 @@ function LoginContent() {
           <span>Continue with Google</span>
         </button>
 
-        {/* Footer Link */}
+     
         <p className="text-center text-xs text-gray-500 mt-6">
           Don&apos;t have an account yet?{" "}
           <Link href="/signup" className="font-bold text-[#16A34A] hover:underline">
