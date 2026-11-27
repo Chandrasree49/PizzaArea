@@ -1,16 +1,14 @@
-'use client';
+"use client";
 
-import React from 'react';
-import Link from 'next/link';
-import { Pizza, Phone, Mail, MapPin, Heart, Leaf } from 'lucide-react';
+import React from "react";
+import Link from "next/link";
+import { Pizza, Phone, Mail, MapPin, Heart, Leaf } from "lucide-react";
 
 export default function Footer() {
   return (
     <footer className="bg-gradient-to-b from-[#F7FBF8] to-[#ECFDF5] border-t border-emerald-100 pt-16 pb-8 text-gray-700">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
-          
-      
           <div className="space-y-4">
             <Link href="/" className="flex items-center gap-2.5">
               <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-[#15803D] to-[#22C55E] flex items-center justify-center text-white shadow-md">
@@ -21,11 +19,12 @@ export default function Footer() {
               </span>
             </Link>
             <p className="text-sm text-gray-600 leading-relaxed">
-              Your premier eco-conscious destination for stone-baked artisanal pizzas, farm-fresh organic toppings, and speedy 30-minute eco-friendly delivery.
+              Your premier eco-conscious destination for stone-baked artisanal
+              pizzas, farm-fresh organic toppings, and speedy 30-minute
+              eco-friendly delivery.
             </p>
-            
+
             <div className="flex items-center gap-3 pt-2">
-        
               <a
                 href="https://x.com"
                 target="_blank"
@@ -66,29 +65,40 @@ export default function Footer() {
             </div>
           </div>
 
-         
           <div>
             <h3 className="text-sm font-bold uppercase tracking-wider text-gray-900 mb-4">
               Explore PizzaArea
             </h3>
             <ul className="space-y-2.5 text-sm">
               <li>
-                <Link href="/" className="hover:text-[#16A34A] transition-colors">
+                <Link
+                  href="/"
+                  className="hover:text-[#16A34A] transition-colors"
+                >
                   Home Page
                 </Link>
               </li>
               <li>
-                <Link href="/menu" className="hover:text-[#16A34A] transition-colors">
+                <Link
+                  href="/menu"
+                  className="hover:text-[#16A34A] transition-colors"
+                >
                   Browse Pizza Menu
                 </Link>
               </li>
               <li>
-                <Link href="/register?role=vendor" className="hover:text-[#16A34A] transition-colors">
+                <Link
+                  href="/signup?role=vendor"
+                  className="hover:text-[#16A34A] transition-colors"
+                >
                   Become a Partner Pizzeria
                 </Link>
               </li>
               <li>
-                <Link href="/login" className="hover:text-[#16A34A] transition-colors">
+                <Link
+                  href="/signin"
+                  className="hover:text-[#16A34A] transition-colors"
+                >
                   Customer Sign In
                 </Link>
               </li>
@@ -101,29 +111,40 @@ export default function Footer() {
             </h3>
             <ul className="space-y-2.5 text-sm">
               <li>
-                <Link href="/menu?category=Classic+Pizzas" className="hover:text-[#16A34A] transition-colors">
+                <Link
+                  href="/menu?category=Classic+Pizzas"
+                  className="hover:text-[#16A34A] transition-colors"
+                >
                   Classic Pizzas
                 </Link>
               </li>
               <li>
-                <Link href="/menu?category=Vegetarian+Pizzas" className="hover:text-[#16A34A] transition-colors">
+                <Link
+                  href="/menu?category=Vegetarian+Pizzas"
+                  className="hover:text-[#16A34A] transition-colors"
+                >
                   Vegetarian & Farm-Fresh
                 </Link>
               </li>
               <li>
-                <Link href="/menu?category=Meat+Lovers" className="hover:text-[#16A34A] transition-colors">
+                <Link
+                  href="/menu?category=Meat+Lovers"
+                  className="hover:text-[#16A34A] transition-colors"
+                >
                   Meat Lovers Supreme
                 </Link>
               </li>
               <li>
-                <Link href="/menu?category=Specialty+/+Gourmet+Pizzas" className="hover:text-[#16A34A] transition-colors">
+                <Link
+                  href="/menu?category=Specialty+/+Gourmet+Pizzas"
+                  className="hover:text-[#16A34A] transition-colors"
+                >
                   Specialty & Gourmet Truffle
                 </Link>
               </li>
             </ul>
           </div>
 
-        
           <div>
             <h3 className="text-sm font-bold uppercase tracking-wider text-gray-900 mb-4">
               Contact & Support
@@ -143,21 +164,26 @@ export default function Footer() {
               </li>
             </ul>
           </div>
-
         </div>
 
-        
         <div className="pt-8 border-t border-emerald-200/70 flex flex-col md:flex-row items-center justify-between text-xs text-gray-500 gap-4">
-          <p>© {new Date().getFullYear()} PizzaArea Inc. All rights reserved. Fresh artisan pizzas delivered sustainably.</p>
+          <p>
+            © 2026 PizzaArea Inc. All rights reserved. Fresh artisan pizzas
+            delivered sustainably.
+          </p>
           <div className="flex items-center gap-6">
-            <Link href="/" className="hover:underline">Privacy Policy</Link>
-            <Link href="/" className="hover:underline">Terms of Service</Link>
+            <Link href="/" className="hover:underline">
+              Privacy Policy
+            </Link>
+            <Link href="/" className="hover:underline">
+              Terms of Service
+            </Link>
             <span className="flex items-center gap-1 text-emerald-700 font-medium">
-              Made with Fresh Basil & <Heart className="w-3.5 h-3.5 text-emerald-600 fill-current" />
+              Made with Fresh Basil &{" "}
+              <Heart className="w-3.5 h-3.5 text-emerald-600 fill-current" />
             </span>
           </div>
         </div>
-
       </div>
     </footer>
   );

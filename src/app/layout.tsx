@@ -1,5 +1,6 @@
 
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import "./globals.css";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -21,7 +22,9 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col bg-[#FFFDF9] text-gray-900">
         <AuthProvider>
           <PizzaProvider>
-            <Navbar />
+            <Suspense fallback={<div className="h-20 bg-white border-b border-gray-100" />}>
+              <Navbar />
+            </Suspense>
             <main className="flex-1">{children}</main>
             <Footer />
           </PizzaProvider>

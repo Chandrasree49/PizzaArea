@@ -2,9 +2,9 @@
 'use client';
 
 import React, { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { authClient } from '@/lib/auth-client';
-import { Pizza } from 'lucide-react';
+import { useRouter, usePathname } from 'next/navigation';
+import { useAuth } from '../context/AuthContext';
+import { Pizza, ShieldAlert } from 'lucide-react';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
@@ -12,15 +12,18 @@ interface ProtectedRouteProps {
 }
 
 export default function ProtectedRoute({ children, allowedRoles }: ProtectedRouteProps) {
-  const { data: session, isPending } = authClient.useSession();
+  const { user, isLoading } = useAuth();
   const router = useRouter();
+  const pathname = usePathname();
 
   useEffect(() => {
-    if (!isPending) {
-      if (!session?.user) {
+    if (!isLoading) {
+      if (!user) {
+        router.replace(`/signin?redirect=${encodeURIComponent(pathname)}`);
+      } else if (user.isBlocked) {
         router.replace('/signin');
       } else if (allowedRoles && allowedRoles.length > 0) {
-        const userRole = (session.user as any)?.role || 'customer';
+        const userRole = user.role || 'customer';
         if (!allowedRoles.includes(userRole)) {
           if (userRole === 'admin') router.replace('/dashboard/admin');
           else if (userRole === 'vendor') router.replace('/dashboard/vendor');
@@ -28,9 +31,9 @@ export default function ProtectedRoute({ children, allowedRoles }: ProtectedRout
         }
       }
     }
-  }, [session, isPending, allowedRoles, router]);
+  }, [user, isLoading, allowedRoles, router, pathname]);
 
-  if (isPending) {
+  if (isLoading) {
     return (
       <div className="min-h-[70vh] flex flex-col items-center justify-center bg-[#F7FBF8] p-6">
         <div className="relative w-16 h-16 mb-4">
@@ -44,7 +47,11 @@ export default function ProtectedRoute({ children, allowedRoles }: ProtectedRout
     );
   }
 
-  if (!session?.user) {
+  if (!user || user.isBlocked) {
+    return null;
+  }
+
+  if (allowedRoles && allowedRoles.length > 0 && !allowedRoles.includes(user.role)) {
     return null;
   }
 

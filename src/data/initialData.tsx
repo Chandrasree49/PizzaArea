@@ -4,30 +4,13 @@ import { MenuItem, Order, Transaction, User } from '../types';
 export const INITIAL_USERS: User[] = [
   {
     id: 'user_admin_1',
-    name: 'Master Admin',
-    email: 'admin@pizzahub.com',
+    name: 'Admin',
+    email: 'admin@pizzaarea.com',
     role: 'admin',
     isBlocked: false,
     image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=300&q=80',
   },
-  {
-    id: 'user_vendor_1',
-    name: 'Luigi Rossi',
-    email: 'luigi@pizzahub.com',
-    role: 'vendor',
-    businessName: "Luigi's Authentic Wood-Fired Pizza",
-    subscriptionPlan: 'premium',
-    isBlocked: false,
-    image: 'https://images.unsplash.com/photo-1583394293214-28ded15ee548?auto=format&fit=crop&w=300&q=80',
-  },
-  {
-    id: 'user_customer_1',
-    name: 'John Dough',
-    email: 'customer@pizzahub.com',
-    role: 'customer',
-    isBlocked: false,
-    image: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=300&q=80',
-  },
+ 
 ];
 
 export const INITIAL_MENU_ITEMS: MenuItem[] = [

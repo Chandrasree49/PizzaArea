@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { authClient } from "@/lib/auth-client";
+import { useAuth } from "../context/AuthContext";
 import {
   Pizza,
   LogOut,
@@ -16,9 +16,8 @@ import {
 import Swal from "sweetalert2";
 
 export default function Navbar() {
-  const { data: session } = authClient.useSession();
-  const user = session?.user;
-  const userRole = (user as any)?.role || "customer";
+  const { user, logout } = useAuth();
+  const userRole = user?.role || "customer";
 
   const pathname = usePathname();
   const router = useRouter();
@@ -32,7 +31,7 @@ export default function Navbar() {
   };
 
   const handleLogout = async () => {
-    await authClient.signOut();
+    await logout();
     setDropdownOpen(false);
     Swal.fire({
       icon: "success",
@@ -48,7 +47,9 @@ export default function Navbar() {
   const navLinks = [
     { name: "Home", href: "/" },
     { name: "Browse Menu", href: "/menu" },
+    ...(user ? [{ name: "Dashboard", href: getDashboardLink() }] : []),
   ];
+     
 
   return (
     <header className="sticky top-0 z-50 bg-[#F7FBF8]/95 backdrop-blur-md border-b border-emerald-100 shadow-xs">
@@ -135,22 +136,32 @@ export default function Navbar() {
                 {/* Profile Dropdown Menu */}
                 {dropdownOpen && (
                   <>
-                    
                     <div
                       className="fixed inset-0 z-40"
                       onClick={() => setDropdownOpen(false)}
                     />
 
                     <div className="absolute right-0 mt-2 w-64 bg-white rounded-2xl shadow-xl border border-gray-100 py-2.5 z-50">
-                      {/* Signed in as Header */}
-                      <div className="px-4 py-2 border-b border-gray-100">
-                        <p className="text-xs text-gray-500 font-medium">
-                          Signed in as
-                        </p>
-                        <p className="text-sm font-bold text-gray-900 truncate">
-                          {user.email}
-                        </p>
-                      </div>
+                     
+<div className="px-4 py-3 border-b border-gray-100 flex items-center gap-3">
+  <img
+    src={
+      user.image ||
+      "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=300&q=80"
+    }
+    alt={user.name || "User"}
+    className="w-10 h-10 rounded-full object-cover border border-emerald-200 shrink-0"
+  />
+  <div className="overflow-hidden">
+    <p className="text-sm font-bold text-gray-900 truncate">
+      {user.name || "User"}
+    </p>
+    <p className="text-xs text-gray-500 truncate">{user.email}</p>
+    <span className="inline-block mt-0.5 text-[10px] font-bold uppercase text-emerald-800 bg-emerald-100 px-1.5 py-0.5 rounded-sm">
+      {userRole}
+    </span>
+  </div>
+</div>
 
                       {/* Navigation Actions */}
                       <div className="py-1.5">
@@ -173,7 +184,6 @@ export default function Navbar() {
                         </Link>
                       </div>
 
-                  
                       <div className="border-t border-gray-100 pt-1.5">
                         <button
                           onClick={handleLogout}
@@ -190,7 +200,6 @@ export default function Navbar() {
             )}
           </div>
 
-         
           <div className="flex md:hidden">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -205,7 +214,6 @@ export default function Navbar() {
           </div>
         </div>
       </div>
-
 
       {mobileMenuOpen && (
         <div className="md:hidden bg-white border-b border-emerald-100 px-4 pt-2 pb-6 space-y-3">

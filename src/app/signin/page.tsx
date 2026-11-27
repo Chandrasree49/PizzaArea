@@ -20,11 +20,9 @@ function LoginContent() {
     e.preventDefault();
     setIsSubmitting(true);
 
-    
-    const { error } = await authClient.signIn.email({
+    const { data, error } = await authClient.signIn.email({
       email,
       password,
-      callbackURL: redirectUrl || "/",
     });
 
     setIsSubmitting(false);
@@ -46,7 +44,17 @@ function LoginContent() {
       showConfirmButton: false,
     });
 
-    router.push(redirectUrl || "/");
+  
+    const role = (data?.user as any)?.role || "customer";
+    if (redirectUrl) {
+      router.push(redirectUrl);
+    } else if (role === "admin") {
+      router.push("/dashboard/admin");
+    } else if (role === "vendor") {
+      router.push("/dashboard/vendor");
+    } else {
+      router.push("/dashboard/customer");
+    }
     router.refresh();
   };
 

@@ -4,16 +4,16 @@ import React, { useState, Suspense } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
-import { Pizza, Lock, Mail, User, Store, Shield, Image as ImageIcon, ArrowRight } from "lucide-react";
+import { Pizza, Lock, Mail, User, Store, Image as ImageIcon, ArrowRight } from "lucide-react";
 import Swal from "sweetalert2";
 
-export type Role = "admin" | "vendor" | "customer";
+export type Role = "vendor" | "customer";
 
 function RegisterContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const queryRole = searchParams.get("role");
-  const initialRole = (queryRole === "vendor" || queryRole === "admin" ? queryRole : "customer") as Role;
+  const initialRole: Role = queryRole === "vendor" ? "vendor" : "customer";
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -23,7 +23,6 @@ function RegisterContent() {
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
- 
   const isLengthValid = password.length >= 6;
   const hasUppercase = /[A-Z]/.test(password);
   const hasLowercase = /[a-z]/.test(password);
@@ -44,45 +43,56 @@ function RegisterContent() {
 
     setIsSubmitting(true);
 
- 
- 
-const { error } = await authClient.signUp.email({
-  name,
-  email,
-  password,
+    try {
+      const { error } = await authClient.signUp.email({
+        name,
+        email,
+        password,
+        role,
+        businessName: role === "vendor" ? businessName : "",
+        callbackURL: role === "vendor" ? "/dashboard/vendor" : "/dashboard/customer",
+      } as any);
 
-  role,
-  businessName: role === "vendor" ? businessName : "",
-  callbackURL: role === "vendor" ? "/dashboard/vendor" : "/dashboard/customer",
-} as any);
+      setIsSubmitting(false);
 
-    setIsSubmitting(false);
+      if (error) {
+        Swal.fire({
+          icon: "error",
+          title: "Registration Error",
+          text: error.message || "Failed to create account. Email may already be in use.",
+          confirmButtonColor: "#16A34A",
+        });
+        return;
+      }
 
-    if (error) {
+      Swal.fire({
+        icon: "success",
+        title: "Welcome to PizzaHub!",
+        text: "Account registered successfully.",
+        timer: 1500,
+        showConfirmButton: false,
+      });
+
+      if (role === "vendor") {
+        router.push("/dashboard/vendor");
+      } else {
+        router.push("/dashboard/customer");
+      }
+      router.refresh();
+    } catch (err: any) {
+      setIsSubmitting(false);
       Swal.fire({
         icon: "error",
-        title: "Registration Error",
-        text: error.message || "Failed to create account",
+        title: "Error",
+        text: err?.message || "Something went wrong. Please try again.",
         confirmButtonColor: "#16A34A",
       });
-      return;
     }
-
-    Swal.fire({
-      icon: "success",
-      title: "Welcome to PizzaArea!",
-      text: "Account registered successfully.",
-      timer: 1500,
-      showConfirmButton: false,
-    });
-
-    router.push("/");
-    router.refresh();
   };
 
   const handleGoogleSignup = async () => {
     await authClient.signIn.social({
-      provider: "google", 
+      provider: "google",
       callbackURL: "/",
     });
   };
@@ -91,7 +101,6 @@ const { error } = await authClient.signUp.email({
     <div className="min-h-[90vh] flex items-center justify-center px-4 py-12 bg-gradient-to-b from-[#F7FBF8] via-emerald-50/40 to-[#F7FBF8]">
       <div className="max-w-md w-full bg-white rounded-3xl border border-emerald-100 shadow-xl p-8 sm:p-10">
         
-    
         <div className="text-center mb-6">
           <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-[#15803D] to-[#22C55E] flex items-center justify-center text-white mx-auto shadow-md mb-3">
             <Pizza className="w-7 h-7" />
@@ -100,12 +109,12 @@ const { error } = await authClient.signUp.email({
             Create an Account
           </h2>
           <p className="text-xs text-gray-500 mt-1">
-            Join PizzaArea as a customer, partner pizzeria, or admin
+            Join PizzaHub as a customer or partner pizzeria
           </p>
         </div>
 
-        
-        <div className="grid grid-cols-3 gap-1.5 p-1.5 bg-emerald-50/80 rounded-2xl border border-emerald-200/80 mb-6">
+        {/* Role Toggle */}
+        <div className="grid grid-cols-2 gap-1.5 p-1.5 bg-emerald-50/80 rounded-2xl border border-emerald-200/80 mb-6">
           <button
             type="button"
             onClick={() => setRole("customer")}
@@ -131,25 +140,9 @@ const { error } = await authClient.signUp.email({
             <Store className="w-3.5 h-3.5" />
             <span>Vendor</span>
           </button>
-
-          <button
-            type="button"
-            onClick={() => setRole("admin")}
-            className={`py-2 px-2 rounded-xl text-xs font-black transition-all flex items-center justify-center gap-1 cursor-pointer ${
-              role === "admin"
-                ? "bg-white text-emerald-800 shadow-xs border border-emerald-300"
-                : "text-gray-600 hover:text-gray-900"
-            }`}
-          >
-            <Shield className="w-3.5 h-3.5" />
-            <span>Admin</span>
-          </button>
         </div>
 
-    
         <form onSubmit={handleSubmit} className="space-y-4">
-          
-   
           <div>
             <label className="block text-xs font-bold text-gray-700 mb-1 flex items-center gap-1.5">
               <User className="w-3.5 h-3.5 text-emerald-600" />
@@ -165,7 +158,6 @@ const { error } = await authClient.signUp.email({
             />
           </div>
 
-          
           {role === "vendor" && (
             <div>
               <label className="block text-xs font-bold text-gray-700 mb-1 flex items-center gap-1.5">
@@ -183,7 +175,6 @@ const { error } = await authClient.signUp.email({
             </div>
           )}
 
-  
           <div>
             <label className="block text-xs font-bold text-gray-700 mb-1 flex items-center gap-1.5">
               <Mail className="w-3.5 h-3.5 text-emerald-600" />
@@ -213,7 +204,6 @@ const { error } = await authClient.signUp.email({
               className="w-full px-4 py-2.5 bg-emerald-50/40 border border-emerald-200/80 rounded-xl text-xs font-semibold text-gray-800 focus:outline-hidden focus:border-[#16A34A]"
             />
 
-          
             <div className="mt-2 space-y-1 text-[11px] text-gray-500 bg-gray-50 p-2.5 rounded-xl border border-gray-100">
               <div className="flex items-center gap-1.5">
                 <span className={`w-3.5 h-3.5 rounded-full flex items-center justify-center text-[9px] font-bold ${isLengthValid ? "bg-emerald-500 text-white" : "bg-gray-200 text-gray-600"}`}>
@@ -242,7 +232,6 @@ const { error } = await authClient.signUp.email({
             </div>
           </div>
 
-    
           <div>
             <label className="block text-xs font-bold text-gray-700 mb-1 flex items-center gap-1.5">
               <ImageIcon className="w-3.5 h-3.5 text-emerald-600" />
@@ -260,7 +249,6 @@ const { error } = await authClient.signUp.email({
             />
           </div>
 
-      
           <button
             type="submit"
             disabled={isSubmitting || !isPasswordStrong}
@@ -269,7 +257,7 @@ const { error } = await authClient.signUp.email({
             <span>
               {isSubmitting
                 ? "Creating Account..."
-                : `Register as ${role === "vendor" ? "Vendor" : role === "admin" ? "Admin" : "Customer"}`}
+                : `Register as ${role === "vendor" ? "Vendor" : "Customer"}`}
             </span>
             <ArrowRight className="w-4 h-4" />
           </button>
@@ -284,7 +272,6 @@ const { error } = await authClient.signUp.email({
           </span>
         </div>
 
-        
         <button
           type="button"
           onClick={handleGoogleSignup}
@@ -323,6 +310,7 @@ const { error } = await authClient.signUp.email({
     </div>
   );
 }
+
 export default function RegisterPage() {
   return (
     <Suspense fallback={<div className="min-h-[90vh] flex items-center justify-center text-xs text-gray-400">Loading form...</div>}>

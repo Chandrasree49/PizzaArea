@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { usePizza } from '../../../context/PizzaContext';
 import { useAuth } from '../../../context/AuthContext';
@@ -19,7 +19,7 @@ import {
 import Link from 'next/link';
 import Swal from 'sweetalert2';
 
-export default function ItemDetailsPage() {
+function ItemDetailsContent() {
   const { id } = useParams() as { id: string };
   const router = useRouter();
   const { getItemById, placeOrder, items } = usePizza();
@@ -50,8 +50,11 @@ export default function ItemDetailsPage() {
     }
   }, [id, items, getItemById]);
 
-  
-  const today = new Date().toISOString().split('T')[0];
+  const [today, setToday] = useState('');
+
+  useEffect(() => {
+    setToday(new Date().toISOString().split('T')[0]);
+  }, []);
 
   if (authLoading) {
     return (
@@ -382,5 +385,20 @@ export default function ItemDetailsPage() {
       )}
 
     </div>
+  );
+}
+
+export default function ItemDetailsPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-[70vh] flex flex-col items-center justify-center">
+          <div className="w-12 h-12 rounded-full border-4 border-emerald-200 border-t-[#16A34A] animate-spin mb-4" />
+          <p className="text-sm font-bold text-gray-700">Loading pizza details...</p>
+        </div>
+      }
+    >
+      <ItemDetailsContent />
+    </Suspense>
   );
 }

@@ -46,7 +46,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
         { name: 'Subscription', href: '/dashboard/vendor/subscription', icon: CreditCard },
         { name: 'Profile Settings', href: '/profile', icon: Settings },
       ];
-    }
+    } 
 
    
     return [

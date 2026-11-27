@@ -3,6 +3,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { User, Role } from '../types';
 import { INITIAL_USERS } from '../data/initialData';
+import { authClient } from '@/lib/auth-client';
 
 interface AuthContextType {
   user: User | null;
@@ -25,57 +26,64 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+  const { data: session, isPending: sessionPending } = authClient.useSession();
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    const initAuth = async () => {
+    if (session?.user) {
+      const bUser = session.user as any;
+      const bSession = (session as any)?.session;
+      const syncedUser: User = {
+        id: bUser.id || bUser._id || 'vendor_id',
+        name: bUser.name || 'User',
+        email: bUser.email || '',
+        role: (bUser.role as Role) || 'customer',
+        businessName: bUser.businessName || '',
+        subscriptionPlan: bUser.subscriptionPlan || 'free',
+        isBlocked: !!bUser.isBlocked,
+        image:
+          bUser.image ||
+          'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=300&q=80',
+      };
+      setUser(syncedUser);
+      const sessionToken =
+        bSession?.token ||
+        localStorage.getItem('pizzaarea_token') ||
+        `session_${syncedUser.id}`;
+      setToken(sessionToken);
+
       try {
-        const storedToken = localStorage.getItem('pizzaarea_token') || localStorage.getItem('pizzahub_token');
-        const storedUser = localStorage.getItem('pizzaarea_user') || localStorage.getItem('pizzahub_user');
+        localStorage.setItem('pizzaarea_token', sessionToken);
+        localStorage.setItem('pizzaarea_user', JSON.stringify(syncedUser));
+      } catch {}
 
-        if (storedToken && storedUser) {
-          const parsedUser: User = JSON.parse(storedUser);
+      setIsLoading(false);
+    } else if (!sessionPending) {
+      const storedToken =
+        localStorage.getItem('pizzaarea_token') ||
+        localStorage.getItem('pizzahub_token');
+      const storedUser =
+        localStorage.getItem('pizzaarea_user') ||
+        localStorage.getItem('pizzahub_user');
+
+      if (storedToken && storedUser) {
+        try {
+          setUser(JSON.parse(storedUser));
           setToken(storedToken);
-          setUser(parsedUser);
-
-         
-          try {
-            const res = await fetch(`${API_BASE}/auth/me`, {
-              headers: { Authorization: `Bearer ${storedToken}` },
-            });
-            if (res.ok) {
-              const data = await res.json();
-              if (data.user) {
-                setUser(data.user);
-                localStorage.setItem('pizzaarea_user', JSON.stringify(data.user));
-              }
-            } else if (res.status === 401 || res.status === 403) {
-       
-              localStorage.removeItem('pizzaarea_token');
-              localStorage.removeItem('pizzaarea_user');
-              setToken(null);
-              setUser(null);
-            }
-          } catch {
-    
-          }
-        }
-      } catch (err) {
-        console.error('Auth initialization error:', err);
-      } finally {
-        setIsLoading(false);
+        } catch {}
+      } else {
+        setUser(null);
+        setToken(null);
       }
-    };
-
-    initAuth();
-  }, []);
+      setIsLoading(false);
+    }
+  }, [session, sessionPending]);
 
   const login = async (email: string, password: string) => {
     setIsLoading(true);
     try {
-     
       try {
         const res = await fetch(`${API_BASE}/auth/login`, {
           method: 'POST',
@@ -93,8 +101,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         } else if (!res.ok && res.status !== 500 && res.status !== 502 && res.status !== 503) {
           return { success: false, message: data.message || 'Login failed' };
         }
-      } catch {
-      }
+      } catch {}
 
       const foundDemo = INITIAL_USERS.find(
         (u) => u.email.toLowerCase() === email.toLowerCase()
@@ -145,9 +152,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         } else if (!res.ok && res.status !== 500 && res.status !== 502) {
           return { success: false, message: result.message || 'Registration failed' };
         }
-      } catch {
-   
-      }
+      } catch {}
 
       const newUser: User = {
         id: `user_${Date.now()}`,
@@ -157,7 +162,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         businessName: data.role === 'vendor' ? (data.businessName || `${data.name}'s Pizzeria`) : '',
         subscriptionPlan: 'free',
         isBlocked: false,
-        image: data.image || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=300&q=80',
+        image:
+          data.image ||
+          'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=300&q=80',
       };
 
       const mockToken = `mock_jwt_${newUser.id}_${Date.now()}`;
@@ -197,11 +204,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           localStorage.setItem('pizzaarea_user', JSON.stringify(data.user));
           return { success: true, message: 'Google Sign In successful!', role: data.user.role };
         }
-      } catch {
-    
-      }
+      } catch {}
 
-   
       const newUser: User = {
         id: `google_user_${Date.now()}`,
         name: 'Google Pizza Explorer',
@@ -225,7 +229,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
-  const logout = () => {
+  const logout = async () => {
+    try {
+      await authClient.signOut();
+    } catch {}
     setUser(null);
     setToken(null);
     localStorage.removeItem('pizzaarea_token');
@@ -255,7 +262,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         }
       }
 
-    
       const updatedUser: User = {
         ...user,
         name: data.name,
@@ -283,9 +289,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           localStorage.setItem('pizzaarea_user', JSON.stringify(data.user));
         }
       }
-    } catch {
-     
-    }
+    } catch {}
   };
 
   return (
